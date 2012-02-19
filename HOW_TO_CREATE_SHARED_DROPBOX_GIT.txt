@@ -1,0 +1,47 @@
+This is just another way to give some use to your dropbox account. Although I use git in this article,
+you can pretty much do it with any other SCM tool.
+
+First of all you obviously need a dropbox account. If you don't have one already, go register for one
+and get 2Gb of free online storage.
+
+Now that you have an account, create a folder on your dropbox and on the web interface and share the
+folder with some friends if you wish to do so.
+
+All is ready now to start creating the repo. For this post I'm assuming you already have a local git 
+repository of a project called my_killer_app and that you are working on a unix based operating system like OS X or Linux.
+
+Open up a terminal, and change directory to your project folder:
+
+cd ~/Sites/my_killer_app
+The next step is to clone your existing local repo into the shared dropbox folder:
+
+git clone --bare . ~/Dropbox/shared_folder/my_killer_app.git
+The --bare option tells git to not include the project files. Only those files needed to track the versioning 
+are cloned (mainly those present in the .git/ folder).
+Now you have sort of a remote repository. Although it's on your machine, it's remote to everyone else sharing 
+the folder. But to make things work we need to add this "remote" location and give it an alias:
+
+git remote add my_killer_app ~/Dropbox/shared_folder/my_killer_app.git
+
+There! It's done. Now you can push your changes to the repository. And pull the changes on another machine with 
+your dropbox account. Also people sharing the folder will be able to do the same.
+
+Just for the sake of completeness, here's how you would make changes and commit them to the "remote" server:
+
+You made changes to the code, now it's time to add and commit:
+
+git commit -a -m "another commit example"
+Nice! Now let push them to the "remote" server:
+
+git push my_killer_app master
+Piece of cake.
+
+And here's how a different user sharing the folder would do to collaborate on your project:
+
+Clone the repository:
+
+git clone ~/Dropbox/shared_folder/my_killer_app.git
+Add the alias to remote repository:
+
+git remote add my_killer_app ~/Dropbox/shared_folder/my_killer_app.git
+And that's it! Now it's pull, commit, push.
