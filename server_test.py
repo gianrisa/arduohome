@@ -3,30 +3,30 @@ import random
 import BaseHTTPServer
 
 
-HOST_NAME = 'example.net' 
-PORT_NUMBER = 80s
+HOST_NAME = '192.168.2.110' 
+PORT_NUMBER = 80
 
 from BaseHTTPServer import HTTPServer
 from BaseHTTPServer import BaseHTTPRequestHandler
 import json
 
-def temp()
+def temp():
     return {"sens_0": random.randrange(0, 101, 2)}
 
 class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_HEAD(s):
         s.send_response(200)
-        s.send_header("Content-type", "text/html")
+        s.send_header("Content-type", "application/json")
         s.end_headers()
     def do_GET(s):
         """Respond to a GET request."""
         s.send_response(200)
-        s.send_header("Content-type", "text/html")
+        s.send_header("Content-type", "application/json")
         s.end_headers()
-        self.wfile.write("\n")
+        s.wfile.write("\n")
 
         #send response:
-        json.dump(temp, self.wfile)
+        json.dump(temp(), s.wfile)
 
 if __name__ == '__main__':
     server_class = BaseHTTPServer.HTTPServer
